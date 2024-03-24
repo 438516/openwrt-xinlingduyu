@@ -48,6 +48,22 @@ sed -i 's/192.168.1.1/192.168.123.1/g' package/base-files/files/bin/config_gener
 
 # Apply patch
 # git apply ../config/patches/{0001*,0002*}.patch --directory=feeds/luci
+
+#替换默认主题为 luci-theme-argon
+
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
+
+#修改活动连接数
+
+sed -i 's/16384/65535/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
+
+#修改x86启动等待时间
+
+sed -i 's/default "5"/default "0"/g' config/Config-images.in
+
+#免登录进入ttyd
+sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
+
 #
 # ------------------------------- Other ends -------------------------------
 
